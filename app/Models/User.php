@@ -152,6 +152,11 @@ final class User extends Authenticatable implements MustVerifyEmail
         return $password !== '' && $password !== null;
     }
 
+    public function hasCustomAvatar()
+    {
+        return $this->custom_avatar_at !== null;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Collection
      */
