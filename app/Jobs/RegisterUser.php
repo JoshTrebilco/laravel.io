@@ -7,6 +7,7 @@ use App\Exceptions\CannotCreateUser;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\GetGithubAvatar;
 
 final class RegisterUser
 {
@@ -49,6 +50,7 @@ final class RegisterUser
                 NotificationType::MENTION,
                 NotificationType::REPLY,
             ],
+            'custom_avatar_at' => $this->checkIfUserHasCustomAvatar(),
         ]);
         $user->save();
     }
@@ -73,5 +75,13 @@ final class RegisterUser
         }
 
         throw CannotCreateUser::duplicateUsername($username);
+    }
+
+    private function checkIfUserHasCustomAvatar(): ?string
+    {
+        $avatar = new GetGithubAvatar($this->githubId);
+        $avatar->handle();
+
+        return $avatar->hasCustomAvatar() ? now() : null;
     }
 }
