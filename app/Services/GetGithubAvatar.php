@@ -7,6 +7,8 @@ class GetGithubAvatar
 {
     private $github_id;
 
+    private $avatarUrl;
+
     public function __construct(string $github_id)
     {
         $this->github_id = $github_id;
