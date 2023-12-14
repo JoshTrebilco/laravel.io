@@ -5,18 +5,18 @@ use Illuminate\Support\Facades\Http;
 
 class GetGithubAvatar
 {
-    private $github_id;
+    private $githubId;
 
     private $avatarUrl;
 
-    public function __construct(string $github_id)
+    public function __construct(string $githubId)
     {
-        $this->github_id = $github_id;
+        $this->githubId = $githubId;
     }
 
     public function handle()
     {
-        $this->avatarUrl = "https://avatars.githubusercontent.com/u/{$this->github_id}?v=4";
+        $this->avatarUrl = "https://avatars.githubusercontent.com/u/{$this->githubId}?v=4";
     }
 
     public function url()
